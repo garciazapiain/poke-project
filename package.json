@@ -1,6 +1,6 @@
 {
   "homepage": "http://garciazapiain.github.io/poke-app",
-  "name": "pokemon-project",
+  "name": "poke-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
