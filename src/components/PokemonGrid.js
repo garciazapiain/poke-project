@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import { filter } from "../store";
 import '../App.css';
 import { useEffect, useState } from "react";
+import StarIcon from "./StarIcon";
 
 function PokemonGrid(props) {
     const [typeOfPokemonFilter] = useAtom(filter);
@@ -17,6 +18,7 @@ function PokemonGrid(props) {
             }
         }
     },[props.pokemonData,typeOfPokemonFilter])
+
     return (
         props.pokemonData ?
             <>
@@ -24,6 +26,7 @@ function PokemonGrid(props) {
                 {filteredData.map((pokemon) => (
                     <div className="pokemon-card" key={pokemon.name}>
                         <img src={pokemon.imgUrl} alt={pokemon.name} />
+                        <StarIcon pokemon={pokemon} />
                         <div className="pokemon-details">
                             <h3>{pokemon.name}</h3>
                             <p>Weight: {pokemon.weight}</p>

@@ -73,7 +73,7 @@ function App() {
         const { name, weight, height, sprites, types } = pokemonData;
         const imgUrl = sprites.back_default;
         const typeNames = types.map((typeObj) => typeObj.type.name);
-
+        const favorite = false;
         return { name, weight, height, imgUrl, types: typeNames };
       }));
       // You can use the dataPokemonList array for further processing or rendering in your application
