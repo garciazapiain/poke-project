@@ -5,7 +5,9 @@ import { Provider as provider, useAtom } from 'jotai';
 import { pokemonList, typesList } from './store';
 import PokemonGrid from './components/PokemonGrid';
 import EmptyPageSearch from './components/EmptyPageSearch';
+import FavoriteGrid from './components/FavoriteGrid'
 import { useFetch } from './useFetch';
+import { Route, Routes } from 'react-router';
 
 function App() {
   const [filterList, setFilterList] = useAtom(typesList);
@@ -37,15 +39,6 @@ function App() {
       setFilterList(updatedFilterList);
     }
   }, [pokemonData, dataPokemonTypes]);
-
-  if (emptyPage) {
-    return (
-      <div className='App'>
-        <h1>Pokemon Project</h1>
-        <EmptyPageSearch emptyPageNumberOfPokemonsSelected={emptyPageNumberOfPokemonsSelected} />
-      </div>
-    )
-  }
 
   function getRandomNumbers(value) {
     const MAX_NUMBERS = value;
@@ -88,8 +81,27 @@ function App() {
   return (
     <div className='App'>
       <h1>Pokemon Project</h1>
-      <Filter />
-      <PokemonGrid newPokemons={() => newPokemons} pokemonData={pokemonData} />
+      <Routes>
+        <Route path="/" element={
+          emptyPage ?
+            <EmptyPageSearch emptyPageNumberOfPokemonsSelected={emptyPageNumberOfPokemonsSelected} />
+            :
+            <>
+              <Filter />
+              <PokemonGrid newPokemons={() => newPokemons} pokemonData={pokemonData} />
+            </>
+        } />
+        <Route path="/poke-project" element={
+          emptyPage ?
+            <EmptyPageSearch emptyPageNumberOfPokemonsSelected={emptyPageNumberOfPokemonsSelected} />
+            :
+            <>
+              <Filter />
+              <PokemonGrid newPokemons={() => newPokemons} pokemonData={pokemonData} />
+            </>
+        } />
+        <Route path="/favorites" element={<FavoriteGrid />} />
+      </Routes>
     </div>
   )
 }

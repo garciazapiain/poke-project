@@ -4,11 +4,10 @@ import { useAtom } from "jotai";
 import { pokemonList } from "../store";
 
 const StarIcon = (props) => {
-    console.log(props.pokemon.name)
     const [pokemonData, setPokemonData] = useAtom(pokemonList)
 
     const starStyles = {
-        color: props.pokemon.favorite ? 'gold' : 'white',
+        color: props.favoriteGrid ? 'gold' : props.pokemon.favorite ? 'gold' : 'white',
         padding: '10px',
         borderRadius: '50%',
         cursor: 'pointer',

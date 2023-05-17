@@ -17,7 +17,6 @@ function EmptyPageSearch(props) {
 
     return (
         <>
-            <h1>Empty Page search</h1>
             <label htmlFor="number-input">Hoy many pokemons do you want (enter number between 1-100): </label>
             <input
                 type="number"
