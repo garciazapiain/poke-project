@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import StarIcon from "./StarIcon";
+import { useAtom } from "jotai";
+import { pokemonList } from "../store";
 
 function FavoriteGrid(props) {
     const [favorites, setFavorites] = useState([]);
     const [updatedFavorites, setUpdateFavorites] = useState(false);
+    const [pokemonData, setPokemonData] = useAtom(pokemonList)
 
     useEffect(() => {
         const favoritesData = localStorage.getItem("favoritePokemons");
@@ -15,6 +18,19 @@ function FavoriteGrid(props) {
 
     function favoriteUnselected() {
         setUpdateFavorites(true)
+    }
+
+    function resetFavorites() {
+        localStorage.setItem("favoritePokemons", [])
+        setFavorites([])
+        setPokemonData((prevData) =>
+            prevData.map((pokemon) => {
+                if (pokemon.favorite) {
+                    return { ...pokemon, favorite: false };
+                }
+                return pokemon;
+            })
+        );
     }
 
     return (
@@ -36,6 +52,7 @@ function FavoriteGrid(props) {
                             </div>
                         </div>
                     ))}
+                    <button onClick={resetFavorites} className="button">Reset favorites</button>
                 </div>
             ) : (
                 <p>No favorite Pokemons yet!</p>

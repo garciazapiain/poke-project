@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ButtonToFavorites from "./ButtonToFavorites";
 
 function EmptyPageSearch(props) {
     const [number, setNumber] = useState(1);
@@ -17,6 +18,7 @@ function EmptyPageSearch(props) {
 
     return (
         <>
+            <h1>Empty Page search</h1>
             <label htmlFor="number-input">Hoy many pokemons do you want (enter number between 1-100): </label>
             <input
                 type="number"
@@ -25,6 +27,7 @@ function EmptyPageSearch(props) {
                 onChange={handleInputChange}
             />
             <button className="button" onClick={() => props.emptyPageNumberOfPokemonsSelected(number)}>Get Pokemons!</button>
+            <ButtonToFavorites/>
             {error && <p>{error}</p>}
         </>
     );

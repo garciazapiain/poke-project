@@ -6,6 +6,7 @@ import { pokemonList, typesList } from './store';
 import PokemonGrid from './components/PokemonGrid';
 import EmptyPageSearch from './components/EmptyPageSearch';
 import FavoriteGrid from './components/FavoriteGrid'
+import ButtonToFavorites from './components/ButtonToFavorites'
 import { useFetch } from './useFetch';
 import { Route, Routes } from 'react-router';
 
@@ -84,10 +85,13 @@ function App() {
       <Routes>
         <Route path="/" element={
           emptyPage ?
-            <EmptyPageSearch emptyPageNumberOfPokemonsSelected={emptyPageNumberOfPokemonsSelected} />
+            <>
+              <EmptyPageSearch emptyPageNumberOfPokemonsSelected={emptyPageNumberOfPokemonsSelected} />
+            </>
             :
             <>
               <Filter />
+              <ButtonToFavorites />
               <PokemonGrid newPokemons={() => newPokemons} pokemonData={pokemonData} />
             </>
         } />
@@ -97,6 +101,7 @@ function App() {
             :
             <>
               <Filter />
+              <ButtonToFavorites />
               <PokemonGrid newPokemons={() => newPokemons} pokemonData={pokemonData} />
             </>
         } />
