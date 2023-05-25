@@ -15,6 +15,7 @@ function App() {
   const [pokemonData, setPokemonData] = useAtom(pokemonList)
   const [emptyPage, setEmptyPage] = useState(true)
   const [dataPokemonTypes, errorPokemonTypes, loadingPokemomTypes] = useFetch("https://pokeapi.co/api/v2/type")
+  const [errorMessage, setErrorMessage] = useState("")
 
   useEffect(() => {
     if (pokemonData.length > 0) {
@@ -75,6 +76,27 @@ function App() {
     setEmptyPage(false)
   }
 
+  function fetchPokemonsThroughSearch(value) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${value}`)
+      .then((response) => response.json())
+      .then((pokemonData) => {
+        const { name, weight, height, sprites, types } = pokemonData;
+        const imgUrl = sprites.back_default;
+        const typeNames = types.map((typeObj) => typeObj.type.name);
+        const favorite = false;
+
+        setPokemonData([
+          { name, weight, height, imgUrl, types: typeNames, favorite },
+        ]);
+
+        setEmptyPage(false);
+      })
+      .catch((error) => {
+        setErrorMessage("Sorry no pokemon found :(")
+        console.log(error)
+      });
+  }
+
   function newPokemons() {
     setEmptyPage(true)
   }
@@ -86,7 +108,7 @@ function App() {
         <Route path="/" element={
           emptyPage ?
             <>
-              <EmptyPageSearch emptyPageNumberOfPokemonsSelected={emptyPageNumberOfPokemonsSelected} />
+              <EmptyPageSearch errorMessage={errorMessage} emptyPageNumberOfPokemonsSelected={emptyPageNumberOfPokemonsSelected} fetchPokemonsThroughSearch={fetchPokemonsThroughSearch} />
             </>
             :
             <>
@@ -97,7 +119,7 @@ function App() {
         } />
         <Route path="/poke-project" element={
           emptyPage ?
-            <EmptyPageSearch emptyPageNumberOfPokemonsSelected={emptyPageNumberOfPokemonsSelected} />
+            <EmptyPageSearch errorMessage={errorMessage} emptyPageNumberOfPokemonsSelected={emptyPageNumberOfPokemonsSelected} fetchPokemonsThroughSearch={fetchPokemonsThroughSearch} />
             :
             <>
               <Filter />
