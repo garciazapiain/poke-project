@@ -84,3 +84,7 @@ input{
 .error{
   color:red
 }
+
+.filterByName{
+  display: flex;
+}
